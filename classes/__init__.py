@@ -40,6 +40,7 @@ class Pools():
              "url": "stratum+tcp://pool.sumokoin.com:3333", 
              "num_cpus": 0, 
              "algo": "Cryptonight", 
+             "ssl_enabled": False,
              "is_fixed": True
           }
         ]
@@ -55,6 +56,7 @@ class Pools():
         p['is_mining'] = p['is_mining'] if 'is_mining' in p else False
         p['is_hidden'] = p['is_hidden'] if 'is_hidden' in p else False
         p['is_fixed'] = p['is_fixed'] if 'is_fixed' in p else False
+        p['ssl_enabled'] = p['ssl_enabled'] if 'ssl_enabled' in p else False
         p['num_cpus'] = p['num_cpus'] if 'num_cpus' in p else \
                                 (CPU_COUNT - 1 if CPU_COUNT > 1 else CPU_COUNT)
         p['priority_level'] = p['priority_level'] if 'priority_level' in p else 'normal'    
@@ -108,6 +110,7 @@ class Pools():
                 'is_hidden': p['is_hidden'],
                 'is_fixed': p['is_fixed'],
                 'num_cpus': p['num_cpus'],
+                'ssl_enabled': p['ssl_enabled'],
                 'priority_level': p['priority_level'],
             }
             _pools.append(_p)
