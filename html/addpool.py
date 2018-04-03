@@ -43,6 +43,7 @@ html = """
                     $('#pool_url').val(pool_info['url']);
                     $('#pool_username').val(pool_info['username']);
                     $('#pool_password').val(pool_info['password']);
+                    $('#pool_ssl').prop('checked', pool_info['ssl_enabled']);
                     
                     if(pool_info['is_fixed']){
                         $('#pool_algo').prop('disabled', true);
@@ -59,8 +60,9 @@ html = """
                 var pool_username = $('#pool_username').val();
                 var pool_password = $('#pool_password').val();
                 var pool_algo = $('#pool_algo').val();
+                var pool_ssl = $('#pool_ssl').is(':checked');
                 
-                app_hub.add_edit_pool(pool_id, pool_display_name, pool_url, pool_username, pool_password, pool_algo);
+                app_hub.add_edit_pool(pool_id, pool_display_name, pool_url, pool_username, pool_password, pool_algo, pool_ssl);
                 
                 return false;
             }
@@ -164,6 +166,12 @@ html = """
                         <label for="pool_url" class="col-xs-3 control-label">URL/Port <sup>*</sup></label>
                         <div class="col-xs-9">
                             <input type="text" id="pool_url" placeholder="e.g. pool.sumokoin.com:3333 (required)" maxlength="512">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="pool_url" class="col-xs-3 control-label">Enable SSL <sup>*</sup></label>
+                        <div class="col-xs-9">
+                            <input type="checkbox" id="pool_ssl">
                         </div>
                     </div>
                      <div class="form-group">

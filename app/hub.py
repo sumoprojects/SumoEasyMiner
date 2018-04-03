@@ -304,8 +304,8 @@ class Hub(QObject):
     def close_addpool_dialog(self):
         self.add_pool_dialog.close()
     
-    @Slot(str, str, str, str, str, str)
-    def add_edit_pool(self, pool_id, pool_display_name, pool_url, pool_username, pool_password, pool_algo):
+    @Slot(str, str, str, str, str, str, bool)
+    def add_edit_pool(self, pool_id, pool_display_name, pool_url, pool_username, pool_password, pool_algo, pool_ssl):
         
         if not pool_display_name.strip():
             QMessageBox.warning(self.add_pool_dialog,'Add/Edit Pool Error', "Pool Name is required.")
@@ -359,6 +359,7 @@ class Hub(QObject):
                 'num_cpus': get_num_cpus(),
                 'priority_level': 'normal',
                 'is_hidden': False,
+                'ssl_enabled': pool_ssl,
             }
              
             self.pools.add_pool(pool_info)
@@ -403,6 +404,11 @@ class Hub(QObject):
                     pool_info['password'] = password
                     need_restart_mining = True
                     
+                if  'ssl_enabled' in pool_info and pool_info['ssl_enabled'] != pool_ssl:
+                    need_restart_mining = True
+                pool_info['ssl_enabled'] = pool_ssl
+
+
                 pool_info['is_hidden'] = False
                 
                 _pool_info = {
@@ -442,6 +448,11 @@ class Hub(QObject):
                 'password': pool_info['password'],
                 'is_fixed': pool_info['is_fixed'],
             }
+
+            if 'ssl_enabled' in pool_info:
+                _pool_info['ssl_enabled'] = pool_info['ssl_enabled']
+            else:
+                _pool_info['ssl_enabled'] = False
             self.on_edit_pool_event.emit(json.dumps(_pool_info))
             self.add_pool_dialog.exec_()
             

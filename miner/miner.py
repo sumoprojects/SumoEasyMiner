@@ -10,6 +10,7 @@ import sys, psutil
 
 import json, socket, struct
 import errno 
+import ssl
 import threading, time, urlparse, random, platform
 from multiprocessing import Process, Event, cpu_count
 #from threading import Timer
@@ -412,6 +413,9 @@ class MinerRPC(SimpleJsonRpcClient):
                     self._my_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                     self._sock_keep_alive()
               
+            if 'ssl_enabled' in self._pool_info and self._pool_info['ssl_enabled']:
+                self._my_sock = ssl.wrap_socket(self._my_sock)
+
             try:
                 self._my_sock.connect((hostname, port))
                 self.connect(self._my_sock)
