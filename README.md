@@ -12,8 +12,10 @@ The most easy, intuitive CPU miner for cryptonote-based cryptocurrencies like SU
 		
 		git clone https://github.com/sumoprojects/SumoEasyMiner SumoEasyMiner
 
-1. Build cryptonight hashing library from [cryptonight-hash-lib](https://github.com/sumoprojects/cryptonight-hash-lib) and put it to `libs` sub-directory.
+2. Build cryptonight hashing library from [cryptonight-hash-lib](https://github.com/sumoprojects/cryptonight-hash-lib) and put it to `libs` sub-directory.
 
-2. Run the miner:
+3. Install [PySide](https://wiki.qt.io/PySide) `pip install pyside` (for Qt bindings).
+
+4. Run the miner:
 		
 		python sumominer.py
